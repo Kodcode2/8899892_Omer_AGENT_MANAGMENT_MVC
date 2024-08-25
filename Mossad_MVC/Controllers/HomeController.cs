@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Mossad_MVC.Models;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,36 +15,46 @@ namespace Mossad_MVC.Controllers
             _httpClient = httpClient;
         }
 
+        //רשימת הסוכנים
         public async Task<IActionResult> Index()
         {
-            IEnumerable<agent> agents = await listagents();
+            IEnumerable<agent> agents = await _httpClient.GetFromJsonAsync<IEnumerable<agent>>("http://localhost:5166/agents");
             return View(agents);
         }
 
-        public async Task<IEnumerable<agent>> listagents()
-        {
-            var list1 = await _httpClient.GetFromJsonAsync<IEnumerable<agent>>("http://localhost:5166/agents");
-            return list1;
-        }
-
+        //רשימת המשימות
         public async Task<IActionResult> getallmissions()
         {
-            IEnumerable<Mission> missions = await listmissions();
-          
+            IEnumerable<Mission> missions = await _httpClient.GetFromJsonAsync<IEnumerable<Mission>>("http://localhost:5166/missions");
+
             return View(missions);
         }
 
-        public async Task<IEnumerable<Mission>> listmissions()
+      //רשימת מטרות
+        public async Task<IActionResult> getalltargets()
         {
-            var list1 = await _httpClient.GetFromJsonAsync<IEnumerable<Mission>>("http://localhost:5166/api/mission");
-            return list1;
+            IEnumerable<Target> targets = await _httpClient.GetFromJsonAsync<IEnumerable<Target>>("http://localhost:5166/targets");
+
+            return View(targets);
         }
 
-      
+        //עדכון מטרה לפעילה
         public async Task<IActionResult> UpdateMission(int id)
         {
-            var response = await _httpClient.PostAsJsonAsync($"http://localhost:5166/api/Mission/{id}", id);
-            return RedirectToAction(nameof(getallmissions));
+            var response = await _httpClient.PutAsJsonAsync($"http://localhost:5166/Missions/{id}", new { id = id });
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction(nameof(getallmissions));
+            }
+            return View(Index);
+        }
+
+
+        //דף ניהול
+        public async Task<IActionResult> meneger()
+        {
+            Details details = await _httpClient.GetFromJsonAsync<Details>("http://localhost:5166/missions/meneger");
+            return View(details);
         }
 
         public IActionResult Privacy()
@@ -59,3 +69,4 @@ namespace Mossad_MVC.Controllers
         }
     }
 }
+ 

@@ -55,11 +55,13 @@
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
+                    @Html.ActionLink("UpdateMission", "UpdateMission", new { id = item.Id })          
         </tr>
 }
+        <script>
+            setTimeout(function () {
+                location.reload();
+            }, 3000);
+        </script>
     </tbody>
 </table>

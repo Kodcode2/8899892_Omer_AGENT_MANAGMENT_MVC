@@ -1,0 +1,70 @@
+﻿@model Mossad_MVC.Models.Details
+
+@{
+    ViewData["Title"] = "meneger";
+}
+
+<h1>meneger</h1>
+
+<div>
+    <h4>Details</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Total_Agents)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Total_Agents)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Active_Agents)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Active_Agents)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Total_Targets)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Total_Targets)
+        </dd>
+      @*   <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Dead_Targets)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Dead_Targets)
+        </dd> *@
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Total_Missions)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Total_Missions)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Active_Missions)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Active_Missions)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ratio_Agents_To_Taegets)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ratio_Agents_To_Taegets)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Possibal_Agents_To_Targets)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Possibal_Agents_To_Targets)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+<script>
+    setTimeout(function () {
+        location.reload();
+    }, 3000);
+</script>

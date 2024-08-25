@@ -18,5 +18,7 @@ namespace Mossad_MVC.Models
         public int Y_axis { get; set; }
 
         public bool Active { get; set; } = false;
+
+        public bool assigned { get; set; } = false;
     }
 }
