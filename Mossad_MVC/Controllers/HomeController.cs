@@ -3,6 +3,7 @@ using Mossad_MVC.Models;
 using Mossad_MVC.Models.viewmode;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text.Json;
 namespace Mossad_MVC.Controllers
@@ -16,6 +17,25 @@ namespace Mossad_MVC.Controllers
             _logger = logger;
             _httpClient = httpClient;
         }
+
+        public async Task<IActionResult> login()
+        {
+            return View(new User());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> login(User user)
+        {
+           var response =  await _httpClient.PostAsJsonAsync("http://localhost:5166/Login", user);
+
+            Token tokenLogin = await response.Content.ReadFromJsonAsync<Token>();
+
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",tokenLogin.token
+            );
+            return RedirectToAction("all", "Home");
+        }
+
+
 
         //רשימת הסוכנים
         public async Task<IActionResult> Index()
@@ -32,13 +52,13 @@ namespace Mossad_MVC.Controllers
             return View(targets);
         }
 
-        //רשימת המשימות
-        public async Task<IActionResult> getallmissions()
-        {
-            IEnumerable<Mission> missions = await _httpClient.GetFromJsonAsync<IEnumerable<Mission>>("http://localhost:5166/missions");
+        ////רשימת המשימות
+        //public async Task<IActionResult> getallmissions()
+        //{
+        //    IEnumerable<Mission> missions = await _httpClient.GetFromJsonAsync<IEnumerable<Mission>>("http://localhost:5166/missions");
 
-            return View(missions);
-        }
+        //    return View(missions);
+        //}
 
       
 
@@ -120,22 +140,14 @@ namespace Mossad_MVC.Controllers
             var targets = await targetlist();
             var agents = await agentlist();
 
-            //foreach (var target in targets)
-            //{
-            //    string status;
-            //    if (target.Eliminated = false)
-            //    {
-            //         status = "T";    
-            //    }
-            //    else { status = "X"; }
-            //    model.points.Add(new point { Row = target.X_axis, Column = target.Y_axis, Symbol = status });
-            //}
-            //foreach (var agent in agents)
-            //{
-            //    model.points.Add(new point { Row = agent.X_axis, Column = agent.Y_axis, Symbol = "A" });
-            //}
-            model.points.AddRange(targets.Select(t => new point { Row = t.X_axis, Column = t.Y_axis, Symbol = "T" }));
-            model.points.AddRange(agents.Select(a => new point { Row = a.X_axis, Column = a.Y_axis, Symbol = "A" }));
+            foreach (var target in targets)
+            {
+                model.points.Add(new point { Row = target.X_axis, Column = target.Y_axis, Symbol = "T" });
+            }
+            foreach (var agent in agents)
+            {
+                model.points.Add(new point { Row = agent.X_axis, Column = agent.Y_axis, Symbol = "A" });
+            }
 
             return View(model);
         }
