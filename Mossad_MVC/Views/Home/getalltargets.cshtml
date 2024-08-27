@@ -4,7 +4,7 @@
     ViewData["Title"] = "getalltargets";
 }
 
-<h1>Targets</h1>
+<h1>getalltargets</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -31,7 +31,7 @@
                 @Html.DisplayNameFor(model => model.Y_axis)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Active)
+                @Html.DisplayNameFor(model => model.Eliminated)
             </th>
             <th></th>
         </tr>
@@ -58,19 +58,9 @@
                 @Html.DisplayFor(modelItem => item.Y_axis)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Active)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.DisplayFor(modelItem => item.Eliminated)
             </td>
         </tr>
 }
-        <script>
-            setTimeout(function () {
-                location.reload();
-            }, 3000);
-        </script>
     </tbody>
 </table>

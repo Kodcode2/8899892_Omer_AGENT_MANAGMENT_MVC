@@ -1,0 +1,87 @@
+﻿@model IEnumerable<Mossad_MVC.Models.viewmode.mission_meneger>
+
+@{
+    ViewData["Title"] = "all";
+}
+
+<h1>all</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MissionId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeLeft)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AgentNickname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TargetName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TargetPosition)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TargetLocation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MissionId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeLeft)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AgentNickname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TargetName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TargetPosition)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TargetLocation)
+            </td>
+            <td>
+                    @Html.ActionLink("UpdateMission", "UpdateMission", new { id = item.MissionId })
+
+            </td>
+        </tr>
+}
+        <script>
+            setTimeout(function () {
+                location.reload();
+            }, 2000);
+        </script>
+    </tbody>
+</table>

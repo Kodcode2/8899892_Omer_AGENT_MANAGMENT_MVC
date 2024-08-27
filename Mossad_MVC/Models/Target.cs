@@ -17,7 +17,7 @@ namespace Mossad_MVC.Models
 
         public int Y_axis { get; set; }
 
-        public bool Alive = true;
+        public bool Eliminated { get; set; } = false;
 
         public bool Active { get; set; } = false;
     }

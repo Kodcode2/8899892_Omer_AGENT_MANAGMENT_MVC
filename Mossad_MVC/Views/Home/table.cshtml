@@ -1,0 +1,56 @@
+﻿@model Table
+
+@* <style>
+    table {
+        border-collapse: collapse;
+        margin: 20px auto;
+    }
+
+    td {
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        vertical-align: middle;
+        padding: 0;
+        
+       
+    }
+</style> *@
+
+<table>
+    @for (int i = 1; i <= Model.Rows; i++)
+    {
+        <tr>
+            @for (int j = 1; j <= Model.Columns; j++)
+            {
+                <td>
+                    @{
+                        var points = Model.points.Where(p => p.Row == i && p.Column == j).ToList();
+                        string cher = ".";
+
+                        if (points.Count == 2 && points.Any(p => p.Symbol == "T") && points.Any(p => p.Symbol == "A"))
+                        {
+                            cher = "kill!";
+                        }
+                        else if (points.Any())
+                        {
+                            cher = points.First().Symbol;
+                        }
+                    }
+                    @cher
+                </td>
+            }
+        </tr>
+    }
+</table>
+
+<script>
+    setInterval(function () {
+        $.ajax({
+            url: '@Url.Action("table", "home")',
+            success: function (data) {
+                $('table').html($(data).find('table').html());
+            }
+        });
+    }, 1000);
+</script>
